@@ -3,6 +3,7 @@ FastAPI Neural Style Transfer API
 
 A clean, self-contained neural style transfer API using PyTorch and FastAPI.
 """
+
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -57,8 +58,8 @@ async def root():
             "self_contained": True,
             "gpu_acceleration": torch.cuda.is_available(),
             "preserves_resolution": True,
-            "max_resolution": "1024px"
-        }
+            "max_resolution": "1024px",
+        },
     }
 
 
@@ -70,9 +71,9 @@ async def health_check():
         gpu_info = {
             "gpu_name": torch.cuda.get_device_name(0),
             "gpu_memory_total": f"{torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB",
-            "gpu_memory_cached": f"{torch.cuda.memory_cached(0) / 1024**3:.1f} GB"
+            "gpu_memory_cached": f"{torch.cuda.memory_cached(0) / 1024**3:.1f} GB",
         }
-    
+
     return {
         "status": "healthy",
         "model_loaded": True,
@@ -82,9 +83,9 @@ async def health_check():
             "preserves_original_resolution": True,
             "max_resolution_limit": "1024px",
             "gpu_acceleration": torch.cuda.is_available(),
-            "self_contained": True
+            "self_contained": True,
         },
-        "gpu_info": gpu_info
+        "gpu_info": gpu_info,
     }
 
 
@@ -94,14 +95,14 @@ async def stylize_image(
     style_image: UploadFile = File(..., description="Style image file"),
     epochs: Optional[int] = 10,
     content_weight: Optional[float] = 1.0,
-    style_weight: Optional[float] = 1000000.0
+    style_weight: Optional[float] = 1000000.0,
 ):
     """
     API endpoint to perform style transfer.
-    
+
     Args:
         content_image: Content image file
-        style_image: Style image file  
+        style_image: Style image file
         epochs: Number of optimization epochs (default: 10)
         content_weight: Weight for content loss (default: 1.0)
         style_weight: Weight for style loss (default: 1000000.0)
@@ -130,18 +131,18 @@ async def stylize_image(
         style_img = Image.open(io.BytesIO(style_bytes)).convert("RGB")
 
         print("Processing images...")
-        
+
         # Use thread lock for model access
         with model_lock:
             model = get_style_transfer_model()
             stylized_img = model.transfer_style(
-                content_img, 
-                style_img, 
+                content_img,
+                style_img,
                 epochs=epochs or 10,
                 content_weight=content_weight or 1.0,
-                style_weight=style_weight or 1000000.0
+                style_weight=style_weight or 1000000.0,
             )
-        
+
         print("Style transfer completed.")
 
         # Save stylized image to a BytesIO object
@@ -162,4 +163,5 @@ async def stylize_image(
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("main:app", host="0.0.0.0", port=5002, reload=True, log_level="info")
