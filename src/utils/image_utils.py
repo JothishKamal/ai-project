@@ -48,24 +48,3 @@ def load_image(image_input, size=None, max_size=1024):
 
     image = transforms.ToTensor()(image).unsqueeze(0)
     return image
-
-
-def show_image(tensor, title, size=(10, 8), save=False):
-    """
-    Display a tensor as an image.
-
-    Args:
-        tensor: Image tensor to display
-        title: Title for the image
-        size: Figure size tuple
-        save: Whether to save the image
-    """
-    image = tensor.cpu().clone()
-    image = image.squeeze(0)
-    image = transforms.ToPILImage()(image)
-    if save:
-        image.save(title + ".jpg")
-    plt.figure(figsize=size)
-    plt.imshow(image)
-    plt.title(title)
-    plt.show()
