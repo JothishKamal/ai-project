@@ -24,7 +24,7 @@ This project includes comprehensive documentation to help you understand and use
 - Performance optimization guide
 - Troubleshooting section
 
-### 📋 [README_NEW.md](README_NEW.md)
+### 📋 [README.md](README.md)
 
 **Project overview and setup!**
 
