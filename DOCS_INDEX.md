@@ -39,7 +39,7 @@ This project includes comprehensive documentation to help you understand and use
 | --------------------------- | -------------------------------------------------------------- |
 | **Just try it out quickly** | [QUICK_START.md](QUICK_START.md)                               |
 | **Understand the science**  | [DOCUMENTATION.md](DOCUMENTATION.md)                           |
-| **Set up the project**      | [README_NEW.md](README_NEW.md)                                 |
+| **Set up the project**      | [README.md](README.md)                                         |
 | **Learn everything**        | All three! Start with QUICK_START → README_NEW → DOCUMENTATION |
 
 ## 🧠 Key Concepts Covered
